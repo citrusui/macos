@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+osascript -e "tell application \"System Preferences\" to quit" # Prevent settings from being overwritten
+
+# Do not write .DS_Store files on networks or USB drives
+
+defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+defaults write com.apple.finder AppleShowAllFiles YES # Show all files in Finder
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true # Show all file extensions
+
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false # Disable smart dashes
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false # Disable smart quotes
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false # Disable autocorrect
+
+# Enable tap-to-click
+
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# Enable tap-to-drag
+
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -int 1
+defaults write com.apple.AppleMultitouchTrackpad Dragging -int 1
+
+defaults write com.apple.Terminal AutoMarkPromptLines -int 0 # Disable line marks
+
+# Set Terminal profile
+
+TERM_PROFILE=setup;
+CURRENT_PROFILE="$(defaults read com.apple.terminal 'Default Window Settings')";
+if [ "${CURRENT_PROFILE}" != "${TERM_PROFILE}" ]; then
+  open "${HOME}/${TERM_PROFILE}.terminal";
+  sleep 1;
+  defaults write com.apple.terminal "Default Window Settings" -string "${TERM_PROFILE}";
+  defaults write com.apple.terminal "Startup Window Settings" -string "${TERM_PROFILE}";
+fi;
