@@ -5,6 +5,12 @@ echo -e "\033[34mConfiguring macOS...\033[0m"
 
 osascript -e "tell application \"System Preferences\" to quit" # Prevent settings from being overwritten
 
+# Disable character substitution
+
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
 # Do not write .DS_Store files on networks or USB drives
 
 defaults write com.apple.desktopservices DSDontWriteNetworkStores true
