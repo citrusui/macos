@@ -2,10 +2,8 @@ os:
  - linux
  - osx
 sudo: required
-language: node_js
-node_js:
- - stable
+language: bash
 script:
- - ./init.sh
+ - ./init.sh -y
 notifications:
   email: false
