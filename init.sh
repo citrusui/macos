@@ -25,12 +25,12 @@ git pull origin master;
 if [ "$1" == "-y" ]; then
   pullSource
 elif [ "$1" == "--force" ]; then
-  echo -e "\n\033[1;31mWARNING: Running this script with --force may result in various errors.\033[0m"
-  echo -e "\033[1;31mContinuing anyway...\033[0m\n"
+  echo -e "\n\033[1;31mWARNING: Running script with --force.\033[0m\n"
   sleep 5
   pullSource --force
 else
-  read -p $'\n'"This may overwrite your existing preferences. Continue? [y/N] " REPLY
+  echo ""
+  read -p "This may overwrite your existing preferences. Continue? [y/N] " REPLY
   echo ""
   if [[ "$REPLY" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
     pullSource
